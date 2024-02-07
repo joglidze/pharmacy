@@ -1,0 +1,37 @@
+<div
+  class="min-vh-100 d-flex align-items-center justify-content-center overflow-hidden"
+>
+  <div class="col-2" style="width: 20rem">
+    <form
+      [formGroup]="form"
+      class="bg-white border rounded-4 p-3"
+      (submit)="onSubmit(form)"
+    >
+      <div class="form-outline">
+        <input
+          type="text"
+          id="mobileNumber"
+          autocomplete="mobile"
+          class="form-control"
+          formControlName="mobileNumber"
+        />
+        <label class="form-label mt-2" for="mobileNumber">Mobile Number</label>
+      </div>
+
+      <div class="form-outline">
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          autocomplete="current-password"
+          id="password"
+        />
+        <label class="form-label mt-2" for="password">Password</label>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block w-100">
+        Sign in
+      </button>
+    </form>
+  </div>
+</div>
