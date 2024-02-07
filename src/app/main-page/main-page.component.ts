@@ -108,7 +108,7 @@ export class MainPageComponent {
     console.log(order);
     product.total = product.price * order;
     if (order > product.order) {
-      this.total = product.total;
+      this.total += product.total;
       product.order++;
     } else if (order < product.order) {
       this.total -= product.total;
@@ -121,6 +121,11 @@ export class MainPageComponent {
       this.finalProduct.products.push(product);
     }
     console.log(index);
+    this.finalProduct.products.reduce(
+      (accumulator: any, currentProduct: any) =>
+        (this.total = accumulator + currentProduct.total),
+      0
+    );
 
     console.log(this.finalProduct.products);
   }
