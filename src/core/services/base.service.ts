@@ -12,12 +12,11 @@ export class BaseService {
   constructor(private http: HttpClient) {}
 
   post<T>(url: string, body?: any) {
+    console.log(body);
     return this.http.post<T>(this.apiUrl + url, body);
   }
 
   get<T>(url: string, params?: any): Observable<T> {
-    return this.http.get<T>(this.apiUrl + url, {
-      params: new HttpParams({ fromObject: params }),
-    });
+    return this.http.get<T>(this.apiUrl + url);
   }
 }

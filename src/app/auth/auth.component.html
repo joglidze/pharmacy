@@ -1,7 +1,15 @@
 <div
-  class="min-vh-100 d-flex align-items-center justify-content-center overflow-hidden"
+  class="d-flex align-items-center justify-content-center"
+  style="min-height: 90vh"
 >
-  <div class="col-2" style="width: 20rem">
+  <div style="width: 20rem">
+    @if (error) {
+    <div class="alert alert-danger d-flex align-items-center">
+      <div>
+        The username or password entered is incorrect. Please try again.
+      </div>
+    </div>
+    }
     <form
       [formGroup]="form"
       class="bg-white border rounded-4 p-3"
@@ -13,7 +21,7 @@
           id="mobileNumber"
           autocomplete="mobile"
           class="form-control"
-          formControlName="mobileNumber"
+          formControlName="userName"
         />
         <label class="form-label mt-2" for="mobileNumber">Mobile Number</label>
       </div>

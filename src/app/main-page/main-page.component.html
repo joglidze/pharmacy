@@ -1,77 +1,74 @@
-<div class="container bg-white mt-5 p-3">
+<div class="container bg-white mt-5 p-3 rounded-4">
   <div class="d-flex align-items-center mb-3">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="search product" />
+      <input
+        type="text"
+        class="form-control"
+        placeholder="search product"
+        (keydown.enter)="loadproducts(searchInput.value)"
+        #searchInput
+      />
     </div>
-    <button class="btn btn-primary ms-5 w-25">Order</button>
+    <button class="btn btn-primary ms-5 w-25" (click)="onSubmit()">
+      Order
+    </button>
   </div>
-  <div class="overflow-auto">
-    <table mat-table [dataSource]="dataSource" class="table container">
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef class="text-center">Name</th>
-        <td mat-cell *matCellDef="let element" class="text-center">
-          {{ element.name }}
-        </td>
-      </ng-container>
+  <div class="container">
+    <div class="row border m-2 rounded-4 p-3" *ngFor="let product of products">
+      <div class="col-12 col-md mb-3">
+        <h3 class="m-0"><strong>Name</strong></h3>
+        <span>{{ product.saxeli }}</span>
+      </div>
+      <div class="col text-center">
+        <h3 class="m-0"><strong>Price</strong></h3>
+        <span>{{ product.fasi }}</span>
+      </div>
+      <div class="col text-center">
+        <h3 class="m-0"><strong> Quantity</strong></h3>
+        <span>{{ product.quant }}</span>
+      </div>
+      <div class="col text-center">
+        <h3 class="m-0"><strong>Amount</strong></h3>
+        <input
+          type="number"
+          class="w-50"
+          (keyup)="calcProductTotal(product, +order.value)"
+          class="text-center"
+          #order
+          [ngStyle]="{
+            'background-color': order.value > product.quant ? 'red' : 'inherit'
+          }"
+          max="{{ product.quant }}"
+        />
+      </div>
+      <div class="col text-center">
+        <h3 class="m-0"><strong>Total</strong></h3>
+        <span>{{ product.total }}</span>
+      </div>
+    </div>
+    <div
+      class="row border bg-secondary rounded-4 text-light m-2 p-3"
+      *ngFor="let product of finalProduct.products"
+    >
+      <div class="col-12 col-md mb-3">
+        <h3 class="m-0"><strong>Name</strong></h3>
+        <span>{{ product.saxeli }}</span>
+      </div>
+      <div class="col text-center">
+        <h3 class="m-0"><strong>Price</strong></h3>
+        <span>{{ product.fasi }}</span>
+      </div>
 
-      <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef class="text-center">Price</th>
-        <td mat-cell *matCellDef="let element" class="text-center">
-          {{ element.price }}
-        </td>
-      </ng-container>
+      <div class="col text-center">
+        <h3 class="m-0"><strong>Amount</strong></h3>
 
-      <ng-container matColumnDef="quantity">
-        <th mat-header-cell *matHeaderCellDef class="text-center">Quantity</th>
-        <td mat-cell *matCellDef="let element" class="text-center">
-          {{ element.quantity }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="order">
-        <th mat-header-cell *matHeaderCellDef class="text-center">Order</th>
-        <td mat-cell *matCellDef="let element">
-          <input
-            type="number"
-            (keyup)="calcProductTotal(element, +order.value)"
-            class="form-control text-center"
-            #order
-            [ngClass]="{ 'bg-danger': order.value > element.quantity }"
-            value="0"
-            min="0"
-            [disabled]="!order > element.quantity"
-            max="{{ element.quantity }}"
-          />
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef class="text-center">Total</th>
-        <td mat-cell *matCellDef="let element" class="text-center">
-          {{ element.total }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="Manufacturing company">
-        <th mat-header-cell *matHeaderCellDef class="text-center">
-          Manufacturing company
-        </th>
-        <td mat-cell *matCellDef="let element" class="text-center">
-          {{ element.total }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="Manufacturing country">
-        <th mat-header-cell *matHeaderCellDef class="text-center">
-          Manufacturing company
-        </th>
-        <td mat-cell *matCellDef="let element" class="text-center">
-          {{ element.total }}
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+        <span>{{ product.amount }}</span>
+      </div>
+      <div class="col text-center">
+        <h3 class="m-0"><strong>Total</strong></h3>
+        <span>{{ product.total }}</span>
+      </div>
+    </div>
   </div>
   <div
     class="border-top text-end d-flex align-items-center justify-content-between mt-4"
@@ -81,5 +78,4 @@
       <span>{{ total }}</span>
     </h1>
   </div>
-  <div></div>
 </div>
